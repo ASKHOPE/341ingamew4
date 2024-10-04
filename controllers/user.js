@@ -1,5 +1,6 @@
 const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId;
+const jwt = require('jsonwebtoken');
 
 const getAll = async (req, res, next) => {
   try {
@@ -38,7 +39,8 @@ const createUser = async (req, res) => {
     .collection("users")
     .insertOne(user);
   if (response.acknowledged) {
-    res.status(201).json(response);
+    const token = jwt.sign({ userId: response.insertedId }, 'your-secret-key');
+    res.status(201).json({ token, user: response });
   } else {
     res
       .status(500)

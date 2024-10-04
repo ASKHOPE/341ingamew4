@@ -5,12 +5,100 @@
     "description": "Clientel API",
     "version": "1.2.0"
   },
-  "host": "three41ingamew4.onrender.com",
+  "host": "localhost:8080",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
+  ], "paths": {
+    "/user/": {
+      "get": {
+        "summary": "Get Users",
+        "security": [{ "oauth2": [] }],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "localhost:8080/login/oauth/authorize",
+      "tokenUrl": "https://github.com/oauth/token/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",
+      "scopes": {
+        "read": "Grants read access",
+        "write": "Grants write access"
+      }
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
   ],
   "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/clients": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "favoriteColor": {
+                  "example": "any"
+                },
+                "birthday": {
+                  "example": "any"
+                },
+                "nickname": {
+                  "example": "any"
+                },
+                "gender": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
     "/user/": {
       "get": {
         "description": "",
@@ -45,12 +133,6 @@
                   "example": "any"
                 },
                 "birthday": {
-                  "example": "any"
-                },
-                "nickname": {
-                  "example": "any"
-                },
-                "gender": {
                   "example": "any"
                 }
               }
@@ -119,12 +201,6 @@
                 },
                 "birthday": {
                   "example": "any"
-                },
-                "nickname": {
-                  "example": "any"
-                },
-                "gender": {
-                  "example": "any"
                 }
               }
             }
@@ -186,12 +262,6 @@
                   "example": "any"
                 },
                 "birthday": {
-                  "example": "any"
-                },
-                "nickname": {
-                  "example": "any"
-                },
-                "gender": {
                   "example": "any"
                 }
               }
@@ -456,5 +526,13 @@
         }
       }
     }
-  }
+  },
+  "security": [
+    {
+      "oauth2": [
+        "read:user",
+        "write:user"
+      ]
+    }
+  ]
 }
