@@ -1,0 +1,6 @@
+MONGODB_URI=mongodb+srv://kat21015:1234Dance@cluster0.ktanx.mongodb.net/
+DB_USERNAME=kat21015
+DB_PASSWORD=1234Dance
+GITHUB_CLIENT_SECRET =82be2e0f8b63b3e79798eb3839e00070babd4c28
+GITHUB_CLIENT_ID =Ov23liNKCVyShdZlfrPE
+CALLBACK_URL =http://localhost:8080/github/callback
