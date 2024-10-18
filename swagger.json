@@ -1,14 +1,14 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "My API for CSE341 Week 3",
+    "title": "My API for CSE341 Week 4",
     "description": "Clientel API",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
-  "host": "three41ingamew3.onrender.com",
+  "host": "localhost:8080",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/user/": {

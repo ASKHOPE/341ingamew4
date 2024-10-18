@@ -5,8 +5,8 @@ const doc = {
     title: "My API for CSE341 Week 2",
     description: "clients API",
   },
-  host: "three41ingamew3.onrender.com",
-  schemes: ["https"],
+  host: "localhost:8080",
+  schemes: ["http"],
 };
 
 const outputFile = "./swagger.json";
