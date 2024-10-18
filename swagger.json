@@ -8,7 +8,7 @@
   "host": "three41ingamew4.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/": {

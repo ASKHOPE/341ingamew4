@@ -6,7 +6,7 @@ const doc = {
     description: "clients API",
   },
   host: "three41ingamew4.onrender.com",
-  schemes: ["http"],
+  schemes: ["https"],
 };
 
 const outputFile = "./swagger.json";
