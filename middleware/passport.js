@@ -10,7 +10,7 @@ passport.use(
     {
       clientID: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
-      callbackURL: "http://localhost:8080/auth/github/callback",
+      callbackURL: "https://three41ingamew4.onrender.com/auth/github/callback",
     },
     function (accessToken, refreshToken, profile, done) {
       // Here, you can save the user's profile data to the database
