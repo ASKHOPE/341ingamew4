@@ -1,9 +1,9 @@
-
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const session = require("express-session");
 const mongodb = require("./db/connect");
-const { userValidation } = require("./middleware/validator.js");
+const passport = require("./passport"); // Passport configuration
 
 const port = process.env.PORT || 8080;
 const app = express();
@@ -14,6 +14,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Session middleware
+app.use(
+  session({
+    secret: "yourSecretKey", // Replace with a strong secret key
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use("/", require("./routes"));
 
 // Initialize MongoDB and start server
@@ -35,21 +49,6 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
-
-// // Routes
-// app.get("/", (req, res) => {
-//   res.send("Node.js API for user validation");
-// });
-
-// // Validation Route
-// app.post("/clients", userValidation, (req, res, next) => {
-//   const { firstName, lastName, email, favoriteColor, birthday,nickname,gender } = req.body;
-//   const errors = validationResult(req);
-//   if (!errors.isEmpty()) {
-//     return res.status(400).json({ errors: errors.array() });
-//   }
-//   res.send("Data is valid and added sucesfully");
-// });
 
 // Error handling
 app.use((err, req, res, next) => {
