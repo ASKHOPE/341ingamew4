@@ -2,11 +2,11 @@ const swaggerAutogen = require("swagger-autogen")();
 
 const doc = {
   info: {
-    title: "My API for CSE341 Week 2",
+    title: "My API for CSE341 Week 4",
     description: "clients API",
   },
-  host: "three41ingamew3.onrender.com",
-  schemes: ["https"],
+  host: "localhost:8080",
+  schemes: ["http"],
 };
 
 const outputFile = "./swagger.json";
