@@ -25,7 +25,7 @@ router.get(
   passport.authenticate("github", { failureRedirect: "/" }),//,session:false reauthentication
   (req, res) => {
     // Successful authentication
-    req.session.user = req.user;
+    // req.session.user = req.user; //uncomment if doesnt callbackproperly
     res.redirect("/profile");
   }
 );
