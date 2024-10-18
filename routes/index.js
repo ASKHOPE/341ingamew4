@@ -32,11 +32,11 @@ router.get(
 
 // Profile route (only accessible when authenticated)
 router.get("/profile", (req, res) => {
-  if (req.isAuthenticated()) { //(!req.isAuthenticated)
+  if (!req.isAuthenticated()) { //(!req.isAuthenticated)
     res.send("Please login to continue.");  // Show logout message
     return res.redirect("/");
   }
-  res.send(`Hello, ${req.user.username}`);
+  res.send(`Hello, ${req.user.displayName}`);
 });
 
 // Logout route (show message "Logged out" after successful logout)
