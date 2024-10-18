@@ -4,6 +4,8 @@ const ObjectId = require("mongodb").ObjectId;
 const getAll = async (req, res, next) => {
   try {
     const db = mongodb.getDb();
+    // const clientId = req.params.id;
+    // res.send(`Client ID: ${clientId}`); //test2
     const clients = await db.collection("clients").find().toArray();
     if (clients.length === 0) {
       return res.status(404).json({ message: "No clients found." });
@@ -18,6 +20,7 @@ const getSingle = async (req, res, next) => {
   try {
     const db = mongodb.getDb();
     const clientId = new ObjectId(req.params.id);
+    // res.send(`Client ID: ${clientId}`); // test2
     const client = await db.collection("clients").findOne({ _id: clientId });
     if (!client) {
       return res.status(404).json({ message: "client not found." });

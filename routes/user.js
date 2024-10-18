@@ -3,12 +3,14 @@ const router = express.Router();
 
 const userController = require('../controllers/user');
 const { userValidation, validationResult } = require('../middleware/validator');
+const { isAuthenticated } = require('../middleware/authenticate');
 
-router.get('/', userController.getAll);
 
-router.get('/:id', userController.getSingle);
+router.get('/', isAuthenticated,userController.getAll);
 
-router.post("/", userValidation, (req, res, next) => {
+router.get('/:id',isAuthenticated, userController.getSingle);
+
+router.post("/",isAuthenticated, userValidation, (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -16,7 +18,7 @@ router.post("/", userValidation, (req, res, next) => {
     userController.createUser(req, res, next);
 });
 
-router.put("/:id", userValidation, (req, res, next) => {
+router.put("/:id",isAuthenticated, userValidation, (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -29,7 +31,7 @@ router.options('/:id', (req, res) => {
     res.send();
 });
 
-router.patch("/:id", userValidation, (req, res, next) => {
+router.patch("/:id",isAuthenticated, userValidation, (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -37,6 +39,6 @@ router.patch("/:id", userValidation, (req, res, next) => {
     userController.updateUser(req, res, next);
 });
 
-router.delete("/:id", userController.deleteUser);
+router.delete("/:id",isAuthenticated, userController.deleteUser);
 
 module.exports = router;

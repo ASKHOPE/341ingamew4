@@ -3,7 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const mongodb = require("./db/connect");
-const passport = require("./passport"); // Passport configuration
+const passport = require("./middleware/passport"); // Passport configuration
 
 const port = process.env.PORT || 8080;
 const app = express();
@@ -18,9 +18,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Session middleware
 app.use(
   session({
-    secret: "yourSecretKey", // Replace with a strong secret key
+    secret: "yourSecretKey",  // A strong secret for session encryption
     resave: false,
     saveUninitialized: true,
+    cookie: { secure: process.env.NODE_ENV === "production" }
   })
 );
 
@@ -28,7 +29,20 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/", require("./routes"));
+app.use("/", require("./routes/index.js"));
+
+// app.get('/',(req,res)=> {res.send(req.session.user !== undefined ? `Logged in as ${req.session.user.username}` : "Logged Out")});
+
+// // GitHub callback route
+// app.get(
+//   "/auth/github/callback",
+//   passport.authenticate("github", { failureRedirect: "/",session: false }),//,session:false reauthentication
+//   (req, res) => {
+//     req.session.user = req.user;
+//     // Successful authentication
+//     res.redirect("/profile");
+//   }
+// );
 
 // Initialize MongoDB and start server
 mongodb.initDb((err, db) => {
@@ -58,4 +72,9 @@ app.use((err, req, res, next) => {
   res.status(err.statusCode).json({
     message: err.message,
   });
+});
+
+// Error handler 2
+app.use((req, res, next) => {
+  res.status(404).json({ message: "Route not found" });
 });
